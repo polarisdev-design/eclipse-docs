@@ -1,51 +1,63 @@
 # Server API
 
-Require ServerScriptService.Eclipse. Startup is handled by its Server child script.
+```lua
+local Eclipse = require(game:GetService("ServerScriptService").Eclipse)
+```
 
-| Member | Behavior |
+The included Server script starts this module. Its public methods are listed below.
+
+| Member | Returns or does |
 | --- | --- |
-| GetOutfit(player) | Yields for initial data; returns an outfit copy, or nil if the player leaves |
-| ApplyOutfit(player, outfit) | Validates and submits the complete outfit; yields; returns a boolean |
-| OutfitApplied | Signal carrying player and the accepted outfit after application |
-| ListOutfits(player) | Returns the player's saved-outfit summaries |
+| GetOutfit(player) | An outfit copy, or nil if the player leaves; yields for initial data |
+| ApplyOutfit(player, outfit) | Validates and submits a whole outfit; yields and returns a boolean |
+| OutfitApplied | Fires with player and the accepted outfit after application |
+| ListOutfits(player) | The player's saved-outfit summaries |
 | SaveOutfit(player, name, outfit) | Saves the supplied draft after validation |
-| LoadOutfit(player, id, revision) | Loads an existing entry using its current revision |
-| ManageOutfit(player, action, payload) | Routes other saved-outfit and import operations |
-| UseOutfitStorage(driver) | Sets a storage driver before the first storage request |
-| Start / Get / IsReady / AwaitReady | Framework lifecycle and module access |
+| LoadOutfit(player, id, revision) | Loads an entry using its current revision |
+| ManageOutfit(player, action, payload) | Runs another saved-outfit or import action |
+| UseOutfitStorage(driver) | Sets the storage driver before the first storage request |
+| Start / Get / IsReady / AwaitReady | Framework startup and registered module access |
 
-## Saved-outfit results
+## Reading a result
 
-Requests return an object with Ok and Message. Success responses supply action-specific fields, such as Entries, SelectedId or Outfit. Check Ok before using those fields.
+Saved-outfit requests return `Ok` and `Message`. Other fields depend on the action. Check Ok before reading Entries, SelectedId or Outfit.
 
 ```lua
-local response = Eclipse.ListOutfits(player)
-if response.Ok then
-    for _, entry in response.Entries do
-        print(entry.Id, entry.Name, entry.Revision)
+local Result = Eclipse.ListOutfits(player)
+if Result.Ok then
+    for _, Entry in Result.Entries do
+        print(Entry.Id, Entry.Name, Entry.Revision)
     end
+else
+    warn(Result.Message)
 end
 ```
 
-## ManageOutfit actions
+## ManageOutfit
 
-| Action | Payload |
+| Action | Payload fields |
 | --- | --- |
-| List | No payload required |
+| List | None |
 | Preview / Load | Id, Revision |
 | Save | Name, Outfit |
 | Rename | Id, Revision, Name |
 | Overwrite | Id, Revision, Outfit |
 | Delete | Id, Revision |
-| ImportReview | Code; Outfit may supply a base |
-| ImportApply | Token from a successful review |
+| ImportReview | Code; optional Outfit base |
+| ImportApply | Token |
 
-ImportReview returns Token, Name, Preview, Warnings, Imported, Omitted, Adjusted and Version. Tokens are player-bound, single-use and expire. Applying does not automatically save.
+ImportReview returns Token, Name, Preview, Warnings, Imported, Omitted, Adjusted and Version.
 
-## Appearance submission
+An import token belongs to the requesting player, expires after two minutes and can only be used once. Applying it changes the current outfit; it does not save it.
 
-ApplyOutfit submits a whole outfit. Always start from GetOutfit when changing a single field. Its boolean reports submission status; OutfitApplied carries an accepted applied snapshot. GetOutfit returns the current server snapshot.
+## Applying an outfit
 
-## Custom storage
+Get the current outfit before changing a field. ApplyOutfit replaces the whole table, so an incomplete replacement can clear things the player was wearing.
 
-A storage driver supplies GetAsync and UpdateAsync. Configure it before any list, save or load request. See [Outfits](/learn/outfits) for the profile contract and concurrency behavior.
+The return value reports whether the submission was accepted. Use OutfitApplied for the applied snapshot, or GetOutfit for the current server state.
+
+## Replacing storage
+
+The driver must provide GetAsync and UpdateAsync. Call UseOutfitStorage before any list, save or load request.
+
+[Outfits](/learn/outfits) describes the stored profile and update behavior.

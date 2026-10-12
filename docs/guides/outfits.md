@@ -1,21 +1,33 @@
 # Outfits and imports
 
-## Named outfits
+## Saving an outfit
 
-The Outfits tab supports saving the current draft, previewing a save, loading, renaming, overwriting and deleting. There are 20 slots by default.
+Open Outfits and enter a name. Save current outfit stores the editor's current draft. There are 20 save slots by default.
 
-Saves use versioned native buffers. Revision checks protect operations on existing entries. Joining does not restore the last worn outfit.
+Select a saved entry to preview it. Load applies it; Rename changes its name; Overwrite replaces its data; Delete removes it.
 
-## Paragon imports
+Existing-entry requests include a revision. If another request changed the save first, the old revision is rejected.
 
-Paste a normal Paragon outfit transfer code, review its preview and notices, then apply the reviewed result. Save current outfit separately to persist it.
+## Importing from Paragon
 
-Normal transfer versions 6, 8, 9, 10, 11 and 12, plus the version-13 compressed wrapper, are supported. PRG1 portable codes and accessory-only codes are rejected.
+Use Paragon's normal outfit Export code:
 
-Mesh fallback preserves source names and independent copies when a usable catalog origin is unavailable. Roleplay names and bios are imported and filtered on application. Unsupported data is described in the review.
+1. Paste the code into the import box.
+2. Press Review code.
+3. Check the preview and the omitted or adjusted items.
+4. Press Apply import.
+5. Save current outfit if you want to keep it.
 
-## Server integration
+Applying an import does not create a save.
 
-Use ListOutfits, SaveOutfit, LoadOutfit and ManageOutfit through the server root. Existing-entry actions require both an ID and revision. Custom storage must be configured before the first saved-outfit request.
+The reader supports normal transfer versions 6, 8, 9, 10, 11 and 12, and the version-13 compressed wrapper. It does not accept PRG1 or accessory-only codes.
 
-Read [Outfits](/learn/outfits), [Importing](/learn/importing) and the [server API](/api/server).
+When an item has no usable catalog origin, Eclipse tries its mesh ID. Names and repeated mesh copies are kept. Imported names and bios are filtered when applied.
+
+Unsupported data and changes caused by configured limits appear in the review.
+
+## From a server script
+
+Use `SaveOutfit`, `LoadOutfit` and `ListOutfits`, or `ManageOutfit` for the other actions. Requests on an existing save need its ID and revision.
+
+See the [server API](/api/server) for payloads. [Outfits](/learn/outfits) explains storage and retries, and [Importing](/learn/importing) explains conversion.

@@ -1,6 +1,6 @@
 # Identity
 
-Identity is part of the outfit:
+Roleplay names and bios are stored in `outfit.Identity`:
 
 ```lua
 Identity = {
@@ -9,20 +9,26 @@ Identity = {
 }
 ```
 
-The Identity tab submits name and bio changes on blur. Empty text clears a field. Default limits are 30 bytes for names and 250 bytes for bios; truncation preserves UTF-8 character boundaries.
+In the Identity tab, click away from a text box to submit it. Blank text clears the field.
 
-## Filtering
+The default limits are 30 bytes for a name and 250 for a bio. These are byte limits, not character counts. Truncation keeps UTF-8 characters intact.
 
-Validation cleans text. The server filters changed names and bios before displaying them. Editor changes are rate limited; saved outfits and imports are also filtered on application. If filtering fails, the previous accepted field is retained.
+## What other players see
 
-## Display
+Validation cleans the text, then the server filters new names and bios. A failed filter keeps the previous accepted value. Editor changes are rate limited.
 
-The server writes EclipseName and EclipseBio character attributes. Clients use those attributes for name tags, hover cards and sheets.
+Accepted fields are written to the character's `EclipseName` and `EclipseBio` attributes. Clients read those attributes to draw the name tag and sheet.
 
-A roleplay name produces a name tag; an unset name produces none. The Sheet topbar button opens your own sheet. Clicking or tapping another visible player within the configured distance opens theirs.
+No roleplay name means no name tag. The sheet uses the player's display name as its fallback.
 
-## Persistence
+## Character sheets
 
-Named saves contain identity. Loading or importing restores it through server filtering. Identity is not restored from a last-worn outfit on join.
+The Sheet button in the top bar opens your own sheet. Click or tap another visible player within the configured distance to open theirs.
 
-See [Identity](/learn/identity) for the implementation and testing steps.
+The sheet shows their roleplay name, username, height and bio. Name tag and sheet distances are set in `Configuration.Identity`.
+
+## Saved and imported identities
+
+Names and bios save with the outfit. Loading a save or applying an import filters them again before display.
+
+[Identity](/learn/identity) explains filtering, character attributes and the client displays.

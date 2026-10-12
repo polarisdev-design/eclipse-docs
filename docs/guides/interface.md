@@ -1,23 +1,34 @@
 # Interface
 
-Eclipse's UI is stored as editable Studio instances under Interface.Assets. Components bind behavior to those instances.
+The UI is stored under `ReplicatedStorage.Eclipse.Interface.Assets`. Edit those instances in Studio; the component modules connect them to the editor.
 
-## Edit the stored assets
+| Asset | Used for |
+| --- | --- |
+| Customization | Editor pages, accessory inspector and focus toolbar |
+| EclipseTransition | Entering and leaving the editor |
+| CharacterSheet | Roleplay name, username, height and bio |
+| NameCard | The card shown when hovering another player |
+| Templates | Accessory rows, outfit rows and name tags |
+| CustomizationIdle | The animation played while editing |
 
-- Customization: editor panels, pages and inspector.
-- EclipseTransition: the entry/exit transition.
-- CharacterSheet and NameCard: identity displays.
-- Templates: accessory rows, outfit rows and name tags.
-- CustomizationIdle: the stored Animation instance.
+## Changing the layout
 
-Preserve names used by binders. Use Interface.Core.theme for palette and timing changes. Interface.Core.styling applies the theme to cloned instances.
+Keep the names the binders use. Moving a field or changing its name may also require changing the module that binds it.
 
-## Scaling and accessories
+Colors are in `Interface.Core.theme`. The styling module applies them when an asset is cloned.
 
-Editor body-scale edits refit accessories to retain their placement relative to the holding body part and their relative size. Saved outfits, imports and server calls apply submitted transforms directly.
+See [Interface](/learn/interface) for the expected instance layout.
 
-## Test interaction paths
+## Body scaling
 
-Check open, select, transform, focus, return, close and reopen. Check viewport zoom without sidebar scrolling, compact layouts, and identity display after a head replacement.
+When a player edits their body scale, Eclipse refits accessories so they keep their offset from the holding part's center and their size relative to that part.
 
-See [Interface](/learn/interface), [Handles](/learn/handles) and [Scene](/learn/scene).
+Loading a save, importing an outfit or applying one from a server script uses the submitted transforms directly.
+
+## Check your changes
+
+Select an accessory, move it, switch to focus mode, then return to the editor. Close and reopen it.
+
+Also check the compact layout and make sure zooming an accessory viewport doesn't scroll its sidebar. If you change a character's head, check that its name tag returns.
+
+[Handles](/learn/handles) covers transform controls. [Scene](/learn/scene) covers the camera and editor environment.

@@ -1,10 +1,6 @@
 # Installation
 
-These instructions install the existing Eclipse package. The documentation website does not include the Roblox model itself.
-
-## Place the package
-
-Keep these two roots and all their descendants together:
+Place the two Eclipse modules in these services:
 
 ```text
 ReplicatedStorage
@@ -13,6 +9,7 @@ ReplicatedStorage
     Core, Controllers, Config, Data, Helpers
     Interface, Libraries, Packages, Remotes, Docs
     license
+
 ServerScriptService
   Eclipse (ModuleScript)
     Server (Script)
@@ -20,11 +17,22 @@ ServerScriptService
     Modules
 ```
 
-Import both roots from your Eclipse distribution. Preserve module names, attributes, remotes and stored UI templates. The Runtime and Server scripts start their respective framework instances; no additional starter script is needed.
+Keep their children and attributes. Both entry scripts are included: `Runtime` starts the client and `Server` starts the server. Nothing needs to go in StarterPlayerScripts.
 
-## Check the remotes
+This repository contains the docs, not the Roblox model.
 
-The package should already contain these instances. If assembling it manually, create them in Studio:
+## Before running it
+
+1. Set the experience's avatar type to R15.
+2. Check that `ReplicatedStorage.Eclipse.Runtime.RunContext` is Client.
+3. Open `Config.configuration` and set the appearance rules for your game.
+4. Check that your experience can load the animation in `Interface.Assets.CustomizationIdle`.
+
+For Studio save tests, enable access to API services in your test experience. Studio saves use a separate DataStore suffix.
+
+## Remotes
+
+The package includes these instances:
 
 ```text
 ReplicatedStorage.Eclipse.Remotes.Customization
@@ -33,16 +41,14 @@ ReplicatedStorage.Eclipse.Remotes.Customization
   OutfitApplied RemoteEvent
 ```
 
-## Configure the experience
+If you are building Eclipse from individual modules, create these in Studio before starting it.
 
-- Set the avatar rig to R15.
-- Confirm Runtime has RunContext set to Client.
-- Configure permitted assets and limits in Config.configuration.
-- For saved-outfit testing in Studio, enable Studio access to API services in a suitable test experience. The storage module uses a separate Studio store suffix.
-- Replace or authorize the CustomizationIdle animation for your experience if its asset permissions require it.
+## First playtest
 
-## Verify installation
+Open the avatar icon and change an accessory. Close the editor and check that movement and the camera return to normal.
 
-Start a playtest. Open the avatar icon, edit an accessory, and close the editor. Movement and the camera should restore. Test save/load explicitly and use a two-client session to check identity filtering and character sheets.
+Then save an outfit, change something, and load the save. Use a two-client test for names, bios and character sheets.
 
-Read [Configuration](/guides/configuration) next. See [Introduction](/learn/introduction) for the full hierarchy.
+If it doesn't start, check the first Eclipse error in Output. See [troubleshooting](/reference/troubleshooting) for common causes.
+
+Continue with [configuration](/guides/configuration). The [Introduction](/learn/introduction) lists the complete hierarchy.

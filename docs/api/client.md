@@ -1,29 +1,35 @@
 # Client and framework API
 
-Require ReplicatedStorage.Eclipse on the client. Runtime normally calls Start for you.
+```lua
+local Eclipse = require(game:GetService("ReplicatedStorage").Eclipse)
+```
 
-| Method | Contract |
+Runtime starts the client controllers. You normally don't need another startup script.
+
+| Method | Behavior |
 | --- | --- |
-| Start() | Starts registered client controllers; repeated root startup calls share the framework startup |
-| Get(name) | Gets a registered module by its short name or full instance path; errors if absent |
-| IsReady() | Returns whether startup completed successfully |
-| AwaitReady() | Waits for startup and propagates failure; call after Start |
+| Start() | Starts the controllers; repeated calls share the same startup |
+| Get(name) | Returns a registered module by short name or full instance path; errors if missing |
+| IsReady() | Returns true once startup finishes |
+| AwaitReady() | Waits for startup and raises its error if it fails; call after Start |
 
-## Registration
+## Adding a controller
 
-The loader discovers direct ModuleScript children of supplied containers. It does not recursively start every helper.
+The framework loads direct ModuleScript children of its supplied containers. Helpers below those modules are required by their owners.
 
-Attributes control discovery and order:
+Return a table from the module. Add Init for initialization and Start for connections or other startup work.
 
-| Attribute | Meaning |
+All Init calls finish before ordinary Start calls run. Each Start has its own task, so it should set up the module and return.
+
+## Ordering
+
+| Attribute | Effect |
 | --- | --- |
-| Preload | Require and initialize before ordinary modules |
-| LoadOrder | Primary numeric order |
-| OrganizationOrder | Secondary numeric order |
-| Disabled | Skip when true |
+| Preload | Requires and initializes the module before ordinary modules |
+| LoadOrder | First numeric sort order |
+| OrganizationOrder | Second numeric sort order |
+| Disabled | Skips the module when true |
 
-Modules return tables. Init runs before Start, and each Start runs in its own task. Start should establish connections and return rather than run an endless loop.
+Get retrieves modules; it does not open the editor.
 
-Eclipse.Get is module access, not a generic editor-open function. Internal UI components and helpers are explained in Learn and may change as implementation evolves.
-
-See [Framework](/learn/framework) and [State](/learn/state).
+[Framework](/learn/framework) has a worked example. [State](/learn/state) explains how the editor's outfit copy is synchronized.

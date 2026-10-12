@@ -1,38 +1,33 @@
 # Eclipse
 
-Eclipse is a configurable avatar customization framework for Roblox R15 roleplay experiences, created by **Polaris**.
+Eclipse is an avatar customization library for Roblox R15 roleplay games, made by Polaris.
 
-It combines a full-screen character editor with server-side appearance validation, accessory transformation, named outfit storage, and character identity features.
+Players can edit their body, clothing and accessories, save outfits, and give their character a name and bio. The server checks each change against the rules you set for the experience.
 
-[Read the documentation](https://polarisdev-design.github.io/eclipse-docs/)
+[Documentation](https://polarisdev-design.github.io/eclipse-docs/)
 
-## Features
+## What's included
 
-- **Body customization** — height, width, depth, head scale, skin tone, and transparency, with individual body-part selection.
-- **Accessory editing** — move, rotate, resize, recolor, change materials and textures, and attach accessories to different body parts.
-- **Character previews** — orbit and zoom the character, inspect individual accessories, and preview saved or imported outfits.
-- **Named outfits** — save, load, rename, overwrite, and delete outfits using compact, versioned buffer storage.
-- **Paragon imports** — review and apply normal outfit transfer codes, including mesh fallback and separate copies of repeated meshes.
-- **Character identity** — roleplay names and biographies, filtered by the server and displayed through name tags and character sheets.
-- **Editable interface** — stored Studio UI instances with a shared graphite and amber theme.
-- **Modular architecture** — a framework loader, shared outfit schema, public integration API, and configurable appearance rules.
+- Body scaling, skin color and transparency, including edits to individual parts.
+- Accessory movement, rotation, sizing, textures, materials and body attachments.
+- Named outfit saves and previews.
+- Normal Paragon outfit imports, with mesh fallback for items without a catalog origin.
+- Filtered roleplay names, bios, name tags and character sheets.
 
-## Documentation
+The interface is stored as Studio instances. You can change the layout in Studio and set its colors through the theme module.
 
-This repository contains Eclipse's documentation website.
+## This repository
 
-- [Getting started](https://polarisdev-design.github.io/eclipse-docs/start/installation.html) — installation, Studio hierarchy, and required experience settings.
-- [Guides](https://polarisdev-design.github.io/eclipse-docs/guides/configuration.html) — configuration, interface customization, outfits, imports, and identity.
-- [Server API](https://polarisdev-design.github.io/eclipse-docs/api/server.html) — integration methods and request contracts.
-- [Learn](https://polarisdev-design.github.io/eclipse-docs/learn/introduction.html) — how Eclipse works, explained in creation order.
-- [Reference](https://polarisdev-design.github.io/eclipse-docs/reference/versions.html) — data formats, compatibility, and limits.
+This is the documentation site. The Roblox package is separate.
 
-The documentation files are available under `docs/`. Website maintenance instructions are in `SETUP.txt`.
+The guides cover [installation](https://polarisdev-design.github.io/eclipse-docs/start/installation.html), [configuration](https://polarisdev-design.github.io/eclipse-docs/guides/configuration.html) and the [server API](https://polarisdev-design.github.io/eclipse-docs/api/server.html). The [Learn section](https://polarisdev-design.github.io/eclipse-docs/learn/introduction.html) explains the system in the order it is built.
 
-## License and credits
+Pages are written in Markdown under `docs/`.
+
+## License
 
 Copyright © 2026 Polaris.
 
-Eclipse uses the custom license included in [LICENSE](LICENSE). It permits use and modification in your own Roblox experiences, including monetized experiences, subject to its terms. Redistribution as a standalone product or resource is restricted.
+Read [LICENSE](LICENSE) before using Eclipse. You can use and modify it in your own Roblox experiences, including monetized ones. Redistributing it as a standalone model, plugin, kit or other resource is restricted.
 
-Signal and Trove retain their MIT licenses. TopbarPlus retains MPL 2.0. See the [third-party notices](docs/reference/third-party.md) for attribution and license details.
+Signal and Trove use the MIT license. TopbarPlus uses MPL 2.0. Their [notices](docs/reference/third-party.md) are included separately.

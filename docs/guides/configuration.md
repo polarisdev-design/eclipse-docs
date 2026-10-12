@@ -1,29 +1,42 @@
 # Configuration
 
-Edit ReplicatedStorage.Eclipse.Config.configuration. The server validates client and server outfits against the same rules.
+Most settings are in `ReplicatedStorage.Eclipse.Config.configuration`. Change the rules there rather than editing the validator.
 
-| Setting | Purpose |
+| Setting | What it changes |
 | --- | --- |
-| MaxAccessories | Rigid accessory limit; default 50 |
-| AllowLayeredClothing / MaxLayeredClothing | Enable and limit layered clothing; default 6 |
-| AccessoryTypes | Permitted catalog accessory types |
-| BlockedAssets | Asset IDs disallowed by the experience |
-| AccessoryOffset / AccessoryRotation / AccessoryScale | Transform bounds |
-| Height | Base height and permitted minimum/maximum, in inches |
+| MaxAccessories | Rigid accessory count; default 50 |
+| AllowLayeredClothing | Whether players can wear layered clothing |
+| MaxLayeredClothing | Layered clothing count; default 6 |
+| AccessoryTypes | Allowed catalog accessory types |
+| BlockedAssets | IDs players cannot use |
+| AccessoryOffset | Maximum movement from an item's base position |
+| AccessoryRotation | Rotation range in degrees |
+| AccessoryScale | Minimum and maximum size multipliers |
+| Height | Base height and allowed heights in inches |
 | Scale | Width, depth and head ranges |
-| Outfits | Save slots, outfit-name limit and DataStore name |
-| Identity | Text limits, change rate, tag and sheet distances |
+| Outfits | Save slots, outfit-name length and DataStore name |
+| Identity | Name and bio lengths, change rate and display distances |
+
+These rules also apply to outfits submitted through the server API.
 
 ## Height
 
-HeightScale equals desired inches divided by Height.BaseInches. The current base is 62.7262 inches, with permitted heights from 28 to 107 inches.
+Height is converted to a scale using:
 
-BodyType and Proportion are not editable runtime outfit fields. Description application preserves the character's existing values.
+```lua
+HeightScale = Inches / Configuration.Height.BaseInches
+```
 
-## Camera
+The current base is 62.7262 inches. The default range is 28 to 107 inches. For example, six feet is 72 inches.
 
-Config.camera controls orbit, zoom, pan, smoothing and input keys. Space resets the camera. Edit saved UI instances for layout changes.
+BodyType and Proportion are not fields in the outfit's Scale table. Applying a description preserves the values already on the character.
 
-## Different limits
+## Camera and UI
 
-Avatar limits, import limits and codec capacities are separate. See [formats and limits](/reference/versions).
+Use `Config.camera` for zoom, orbit, pan, smoothing and key bindings. Space resets the editor camera.
+
+Edit `Interface.Assets` for the layout and `Interface.Core.theme` for colors. The [interface guide](/guides/interface) lists the assets.
+
+## Storage limits
+
+Increasing an accessory limit doesn't increase the size of the save buffer. The avatar, importer and codec have separate caps, listed in [formats and limits](/reference/versions).
