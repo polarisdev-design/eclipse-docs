@@ -1,58 +1,38 @@
-# Eclipse documentation
+# Eclipse
 
-VitePress documentation for Eclipse by Polaris. Includes the current Studio guides, installation notes, public API, format reference and GitHub Pages workflow.
+Eclipse is a configurable avatar customization framework for Roblox R15 roleplay experiences, created by **Polaris**.
 
-## Put these files in the repository
+It combines a full-screen character editor with server-side appearance validation, accessory transformation, named outfit storage, and character identity features.
 
-Extract the ZIP **contents** directly into your cloned repository folder. package.json and .github must be at the repository root, not inside another eclipse-docs folder.
+[Read the documentation](https://polarisdev-design.github.io/eclipse-docs/)
 
-Open that repository folder in VS Code.
+## Features
 
-## Preview locally
+- **Body customization** — height, width, depth, head scale, skin tone, and transparency, with individual body-part selection.
+- **Accessory editing** — move, rotate, resize, recolor, change materials and textures, and attach accessories to different body parts.
+- **Character previews** — orbit and zoom the character, inspect individual accessories, and preview saved or imported outfits.
+- **Named outfits** — save, load, rename, overwrite, and delete outfits using compact, versioned buffer storage.
+- **Paragon imports** — review and apply normal outfit transfer codes, including mesh fallback and separate copies of repeated meshes.
+- **Character identity** — roleplay names and biographies, filtered by the server and displayed through name tags and character sheets.
+- **Editable interface** — stored Studio UI instances with a shared graphite and amber theme.
+- **Modular architecture** — a framework loader, shared outfit schema, public integration API, and configurable appearance rules.
 
-Install Node.js 22 or newer from https://nodejs.org if you do not already have it. In VS Code, choose Terminal → New Terminal. The terminal must be in this repository's root folder (the folder containing package.json).
+## Documentation
 
-Run these as separate commands:
+This repository contains Eclipse's documentation website.
 
-```powershell
-npm.cmd ci
-```
+- [Getting started](https://polarisdev-design.github.io/eclipse-docs/start/installation.html) — installation, Studio hierarchy, and required experience settings.
+- [Guides](https://polarisdev-design.github.io/eclipse-docs/guides/configuration.html) — configuration, interface customization, outfits, imports, and identity.
+- [Server API](https://polarisdev-design.github.io/eclipse-docs/api/server.html) — integration methods and request contracts.
+- [Learn](https://polarisdev-design.github.io/eclipse-docs/learn/introduction.html) — how Eclipse works, explained in creation order.
+- [Reference](https://polarisdev-design.github.io/eclipse-docs/reference/versions.html) — data formats, compatibility, and limits.
 
-```powershell
-npm.cmd run docs:dev
-```
+The documentation files are available under `docs/`. Website maintenance instructions are in `SETUP.txt`.
 
-Open the URL printed by VitePress. The local default base is /eclipse-docs/; follow the terminal's complete URL. To stop the server, press Ctrl+C.
+## License and credits
 
-To verify a production build:
+Copyright © 2026 Polaris.
 
-```powershell
-npm.cmd run docs:build
-```
+Eclipse uses the custom license included in [LICENSE](LICENSE). It permits use and modification in your own Roblox experiences, including monetized experiences, subject to its terms. Redistribution as a standalone product or resource is restricted.
 
-## Publish with GitHub Desktop
-
-1. On GitHub, open this repository's Settings → Pages.
-2. Set Build and deployment → Source to GitHub Actions.
-3. In GitHub Desktop, commit the extracted files to main.
-4. Click Push origin.
-5. Open the Actions tab on GitHub and wait for Deploy Eclipse docs to succeed.
-6. Settings → Pages displays the published address.
-
-If your default branch is not main, edit the workflow's branches entry.
-
-The workflow determines the website's base path from GitHub Pages settings. You do not need to put a GitHub username into the configuration.
-
-## Editing
-
-- docs/start: short installation and integration instructions.
-- docs/guides: feature guides.
-- docs/api: integration reference.
-- docs/learn: Studio guides in creation order, 00–17.
-- docs/reference: format limits, troubleshooting and license.
-- docs/.vitepress/config.mts: navigation and sidebar.
-- docs/.vitepress/theme/style.css: graphite and amber theme.
-
-The Learn pages were exported from the live Studio Docs modules on 12 October 2026. Update their Markdown when behavior changes. If retaining in-Studio guides, keep them synchronized with the Markdown before each release.
-
-Eclipse uses the custom Polaris license in LICENSE. Third-party package attributions are described in the documentation; keep their original notices with the Roblox distribution.
+Signal and Trove retain their MIT licenses. TopbarPlus retains MPL 2.0. See the [third-party notices](docs/reference/third-party.md) for attribution and license details.
